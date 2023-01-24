@@ -4,7 +4,7 @@ let logEntries = [];
 
 // 입력 필드에서 입력 값을 가져옴
 function getUserNumberInput() {
-  return paseInt(userInput.value); //parseInt(userInput.value) == +userInput.value
+  return parseInt(userInput.value); //parseInt(userInput.value) == +userInput.value
 }
 
 // 계산 로그 생성과 작성
@@ -20,53 +20,69 @@ function writeToLog(
   operationNumber,
   newResult
 ) {
-    const logEntry = {
-      operation: operationIdentifier,
-      prevResult: prevResult,
-      number: operationNumber,
-      result: newResult,
-    };
-    logEntries.push(logEntry);
-    console.log(logEntries);
+  const logEntry = {
+    operation: operationIdentifier,
+    prevResult: prevResult,
+    number: operationNumber,
+    result: newResult,
+  };
+  logEntries.push(logEntry);
+  console.log(logEntries);
 }
 
-function calculateResult(calculationType){
+function calculateResult(calculationType) {
+  if (
+    calculationType !== "ADD" &&
+    calculationType !== "SUBTRACT" &&
+    calculationType !== "MULTIPLY" &&
+    calculationType !== "DIVIDE"
+  ) {
+    return;
+  }
+
+  // if (
+  //   calculationType === "ADD" ||
+  //   calculationType === "SUBTRACT" ||
+  //   calculationType === "MULTIPLY" ||
+  //   calculationType === "DIVIDE"
+  // ) {
   const enteredNumber = getUserNumberInput();
   const initialResult = currentResult;
   let mathOperator;
-  if (calculationType === 'ADD') {
+  if (calculationType === "ADD") {
     currentResult += enteredNumber; // currentResult = currentResult + enteredNumber;
-    mathOperator = '+';
-  } else if (calculationType === 'SUBTRACT') {
+    mathOperator = "+";
+  } else if (calculationType === "SUBTRACT") {
     currentResult -= enteredNumber;
-    mathOperator = '-';
-  } else if (calculationType === 'MULTIPLY') {
+    mathOperator = "-";
+  } else if (calculationType === "MULTIPLY") {
     currentResult *= enteredNumber;
-    mathOperator = '*';
-  } else { //else if (calculationType === 'DIVIDE')
+    mathOperator = "*";
+  } else if (calculationType === "DIVIDE") {
+    // else {
     currentResult /= enteredNumber;
-    mathOperator = '/';
-  } 
-
+    mathOperator = "/";
+  }
 
   createAndWriteOutput(mathOperator, initialResult, enteredNumber);
   writeToLog(calculationType, initialResult, enteredNumber, currentResult);
 }
+// }
 
 function add() {
-  calculateResult('ADD');
+  calculateResult("ADD");
 }
 
 function subtract() {
-  calculateResult('SUBTRACT');
+  calculateResult("SUBTRACT");
 }
 
 function multiply() {
-  calculateResult('MULTIPLY');
+  calculateResult("MULTIPLY");
 }
 
 function divide() {
-  calculateResult('DIVIDE');
+  calculateResult("DIVIDE");
 }
 
 addBtn.addEventListener("click", add);
