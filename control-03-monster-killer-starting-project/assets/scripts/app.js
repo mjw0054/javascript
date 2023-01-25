@@ -122,7 +122,7 @@ function endRound() {
   }
 
   if (currentMonsterHealth <= 0 || currentPlayerHealth <= 0) {
-    
+    reset();
   }
 }
 
