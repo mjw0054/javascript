@@ -117,7 +117,7 @@ function endRound() {
       LOG_EVENT_GAME_OVER,
       "A DRAW",
       currentMonsterHealth,
-      currentPlayerHealth
+      
     );
   }
 
